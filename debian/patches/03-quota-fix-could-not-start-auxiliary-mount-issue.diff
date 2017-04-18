@@ -1,0 +1,37 @@
+From e61a2171f2389ec6cf1be962b68609c2e763cbd9 Mon Sep 17 00:00:00 2001
+From: Manikandan Selvaganesh <mselvaga@redhat.com>
+Date: Mon, 11 Jan 2016 18:08:27 +0530
+Subject: [PATCH] quota : fix could not start auxiliary mount issue
+
+In versions older than 3.7, when trying to enable
+quota, the following message appears :"quota: Could
+not start quota auxiliary mount". It was because,
+/var/run/gluster was not getting created in cli side.
+In 3.7, the code has been moved to glusterd and we are
+making use of sys_mkdir.
+
+3.6 fix -> http://review.gluster.org/#/c/13308/
+
+
+Change-Id: Id4360409f76b57c0f676fe2b859f3647c4340575
+BUG: 1117888
+Signed-off-by: Manikandan Selvaganesh <mselvaga@redhat.com>
+Reviewed-on: http://review.gluster.org/13215
+Smoke: Gluster Build System <jenkins@build.gluster.com>
+CentOS-regression: Gluster Build System <jenkins@build.gluster.com>
+NetBSD-regression: NetBSD Build System <jenkins@build.gluster.org>
+Reviewed-by: Niels de Vos <ndevos@redhat.com>
+Reviewed-by: Vijaikumar Mallikarjuna <vmallika@redhat.com>
+---
+
+--- a/cli/src/cli-cmd-volume.c
++++ b/cli/src/cli-cmd-volume.c
+@@ -1029,7 +1029,7 @@ gf_cli_create_auxiliary_mount (char *vol
+         }
+ 
+         GLUSTERD_GET_QUOTA_AUX_MOUNT_PATH (mountdir, volname, "/");
+-        ret = mkdir (mountdir, 0777);
++        ret = mkdir_p (mountdir, 0700, _gf_true);
+         if (ret && errno != EEXIST) {
+                 gf_log ("cli", GF_LOG_ERROR, "Failed to create auxiliary mount "
+                         "directory %s. Reason : %s", mountdir,

@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --with python2 --with autoreconf
+
+override_dh_install:
+	strip --remove-section=.comment --remove-section=.note --strip-unneeded \
+		debian/tmp/usr/lib/*/glusterfs/*/xlator/debug/trace.so
+	strip --remove-section=.comment --remove-section=.note --strip-unneeded \
+		debian/tmp/usr/lib/*/glusterfs/*/xlator/debug/error-gen.so
+	strip --remove-section=.comment --remove-section=.note --strip-unneeded \
+		debian/tmp/usr/lib/*/glusterfs/*/xlator/debug/io-stats.so
+	find debian/tmp/usr/lib -type f -name \*.la -exec sed 's/^dependency_libs/#dependency_libs/g' -i {} \;
+	dh_install --list-missing
+	chmod +x $(CURDIR)/debian/glusterfs-common/usr/share/glusterfs/scripts/*.sh
+	mv $(CURDIR)/debian/glusterfs-common/usr/share/glusterfs/scripts/gsync-sync-gfid \
+		$(CURDIR)/debian/glusterfs-common/usr/lib/glusterfs/gsync-sync-gfid
+
+override_dh_strip:
+	dh_strip --dbg-package=glusterfs-dbg

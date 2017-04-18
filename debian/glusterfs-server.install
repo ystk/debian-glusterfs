@@ -1,0 +1,9 @@
+usr/sbin/gluster
+usr/sbin/glusterd
+usr/sbin/glfsheal
+etc/glusterfs/glusterd.vol
+etc/glusterfs/logger.conf.example
+etc/glusterfs/glusterfs-georep-logrotate
+etc/glusterfs/gluster-rsyslog-7.2.conf
+etc/glusterfs/gluster-rsyslog-5.8.conf
+extras/hook-scripts/S56glusterd-geo-rep-create-post.sh var/lib/glusterd/hooks/1/gsync-create/post/
