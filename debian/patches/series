@@ -1,3 +1,9 @@
 01-CVE-2014-3619.diff
 02-nfs-unix-domain-socket-created-as-fifo.diff
 03-quota-fix-could-not-start-auxiliary-mount-issue.diff
+CVE-2018-10904.patch
+CVE-2018-10907.patch
+CVE-2018-10911.patch
+CVE-2018-10913.patch
+CVE-2018-10923.patch
+CVE-2018-10926.patch

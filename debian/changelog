@@ -1,3 +1,15 @@
+glusterfs (3.5.2-2+deb8u4) jessie-security; urgency=high
+
+  * Non-maintainer upload by the LTS team.
+  * Fix CVE-2018-10904, CVE-2018-10907, CVE-2018-10911, CVE-2018-10913,
+    CVE-2018-10914, CVE-2018-10923, CVE-2018-10926, CVE-2018-10927,
+    CVE-2018-10928, CVE-2018-10929 and CVE-2018-10930.
+    Multiple security vulnerabilites were discovered in glusterfs. Buffer
+    overflows and path traversal issues may lead to information disclosure,
+    denial-of-service or the execution of arbitrary code.
+
+ -- Markus Koschany <apo@debian.org>  Wed, 19 Sep 2018 12:58:23 +0200
+
 glusterfs (3.5.2-2+deb8u3) jessie-proposed-updates; urgency=medium
 
   * quota: Fix could not start auxiliary mount issue by adding upstream patch
